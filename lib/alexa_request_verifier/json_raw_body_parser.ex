@@ -10,6 +10,10 @@ defmodule AlexaRequestVerifier.JSONRawBodyParser do
   alias Plug.Conn
   require Logger
 
+  @impl Plug.Parsers
+  def init(opts), do: opts
+
+  @impl Plug.Parsers
   def parse(conn, "application", "json", _params, opts) do
     if Plug.Conn.get_req_header(conn, "signature") != [] do
       case Conn.read_body(conn, opts) do
